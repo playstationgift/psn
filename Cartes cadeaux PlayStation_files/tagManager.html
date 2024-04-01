@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<!-- saved from url=(0080)https://web-commerce-anywhere.playstation.com/static/tag-manager/tagManager.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><script src="./uwt.js.téléchargement" async=""></script><script src="./1611628815822807" async=""></script><script src="./fbevents.js.téléchargement" async=""></script></head><body>
+    <script id="adobeLaunch" async="" src="./launch-01526bff8ca1.min.js.téléchargement"></script><script type="text/javascript">
+    (function() {
+      window.fireTag = function(eventType, action) {
+        const bodyElement = document.querySelector("body");
+        const eventOptions = action ? { detail: { action: action } } : {};
+        const event = new CustomEvent(eventType, eventOptions);
+        bodyElement.dispatchEvent(event);
+      };
+
+      window.loadTag = function(tag) {
+        window.loadedTags = window.loadedTags || {};
+
+        if (tag.src in window.loadedTags) {
+          return;
+        }
+
+        window.loadedTags[tag.src] = false;
+        const tagJs = document.createElement('script');
+        tagJs.setAttribute('id', tag.id);
+        tagJs.async = true;
+        tagJs.src = tag.src;
+        // Insert the new tag above all other scripts, per Ubertags/Signal sample code
+        const firstScript = document.getElementsByTagName('script')[0];
+        firstScript.parentNode.insertBefore(tagJs, firstScript);
+        const tagManagerService = this;
+
+        tagJs.onload = function () {
+          window.loadedTags[tag.src] = true;
+        };
+
+        tagJs.onerror = function () {
+          console.log('Tag error');
+        };
+      };
+
+      window.addEventListener("message", function(event) {
+        const allowList = ["https://store.playstation.com","https://www.playstation.com"]        
+        if (allowList.includes(event.origin)) {
+          try {
+            const data = JSON.parse(event.data);
+            const {
+              tags,
+              hostApp,
+              fireTag,
+            } = data;
+            if (hostApp) {
+              window.hostApp = hostApp;
+            }
+
+            if (tags) {
+              tags.forEach((tag) => {
+                window.loadTag(tag);
+              });
+            }
+
+            if (fireTag) {
+              window.fireTag(fireTag.event, fireTag.payload);
+            }
+          } catch(e) {
+            console.log(e);
+          }
+          return;
+        }
+      });
+    })();
+    </script>
+  <script type="text/javascript" src="./ewA7GEk"></script>
+
+</body></html>
